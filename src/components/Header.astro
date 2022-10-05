@@ -1,0 +1,212 @@
+---
+
+---
+
+<header class="primary-header">
+    <div>
+        <a href="/">
+            <img src="/assets/shared/logo.svg" alt="Website Logo">
+        </a>
+    </div>
+
+    <button class="mobile-nav-toggle" aria-controls="primary-navigation" aria-expanded="false">
+        <span class="sr-only">Menu</span>
+    </button>
+
+    <nav id="primary-navigation" class="primary-navigation" data-visible="false">
+        <ul>
+            <li>
+                <a class={`${Astro.url.pathname === "/" && "active"}`} href="/">
+                    <span aria-hidden="true">00</span>Home
+                </a>
+            </li>
+            <li>
+                <a class={`${Astro.url.pathname === "/destination" && "active"}`} href="/destination">
+                    <span aria-hidden="true">01</span>Destination
+                </a>
+            </li>
+            <li>
+                <a class={`${Astro.url.pathname === "/crew" && "active"}`} href="/crew">
+                    <span aria-hidden="true">02</span>Crew
+                </a>
+            </li>
+            <li>
+                <a class={`${Astro.url.pathname === "/technology" && "active"}`} href="/technology">
+                    <span aria-hidden="true">03</span>Technology
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<style lang="scss">
+    @import "../styles/global.scss";
+
+    .mobile-nav-toggle {
+        display: none;
+
+        @media (max-width: 35em) {
+            display: block;
+            position: absolute;
+            top: 1rem;
+            right: 0;
+            z-index: 9999;
+            background-color: transparent;
+            background-image: url("/assets/shared/icon-hamburger.svg");
+            background-repeat: no-repeat;
+            width: 2rem;
+            border: none;
+            aspect-ratio: 1;
+
+            &[aria-expanded="true"] {
+                background-image: url("/assets/shared/icon-close.svg");
+            }
+        }
+    }
+
+    .primary-header {
+        @include flex;
+        align-items: center;
+        justify-content: space-between;
+
+        position: relative;
+        margin-top: 2rem;
+
+        @media (max-width: 35rem) {
+            margin-top: 1.5rem;
+        }
+
+        /* Line between Logo and Nav */
+        @media (min-width: 75rem) {
+            &::before {
+                content: "";
+
+                position: absolute;
+                width: min(calc(25% + ((100vw - 75rem) / 45 * 27)), 60rem);
+                height: 1px;
+                background-color: $light-color;
+                opacity: 0.3;
+
+                transform: translateX(7rem);
+                z-index: 2;
+            }
+        }
+    }
+
+    .primary-navigation {
+        background: hsl(0 0% 0% / 0.75);
+
+        /* desktop */
+        @media (min-width: 60rem) {
+            --gap: clamp(1.5rem, 5vw, 3rem);
+            padding-block: 2rem;
+            padding-inline-start: clamp(3rem, 8vw, 10rem);
+            padding-inline-end: calc(clamp(3rem, 8vw, 10rem) + 3rem);
+            transform: translateX(3rem);
+        }
+
+        /* tablet */
+        @media (min-width: 35rem) and (max-width: 60rem) {
+            --gap: clamp(1.5rem, 5vw, 3rem);
+            padding-block: 2rem;
+            padding-inline-start: clamp(3rem, 8vw, 10rem);
+            padding-inline-end: calc(clamp(3rem, 8vw, 10rem) + 2rem);
+            transform: translateX(2rem);
+        }
+
+        /* mobile  */
+        @media (max-width: 35rem) {
+            --gap: 2em;
+
+            position: fixed;
+            inset: 0 0 0 30%;
+            z-index: 1000;
+
+            padding: min(30vh, 10rem) 2em;
+
+            transform: translateX(100%);
+            transition: transform 350ms ease-out;
+
+            &[data-visible="true"] {
+                transform: translateX(0%);
+            }
+
+            ul {
+                flex-direction: column;
+            }
+        }
+
+        ul {
+            @include flex;
+            list-style: none;
+        }
+
+        a {
+            @include nav-text;
+            @include color-light;
+
+            position: relative;
+        }
+
+        /* hover and focus state */
+        @media (min-width: 35rem) {
+            a::before {
+                content: "";
+
+                position: absolute;
+                width: 100%;
+                
+                border-bottom: solid 3px $light-color;
+                padding-bottom: calc(1em + 2rem);
+                opacity: 0;
+                transition: opacity 150ms ease-out;
+            }
+
+            a:hover::before,
+            a:focus-visible::before {
+                opacity: 0.6;
+            }
+
+            a:focus-visible {
+                outline: none;
+            }
+
+            a.active::before {
+                opacity: 1;
+            }
+        }
+
+        a > span[aria-hidden="true"] {
+            font-weight: 700;
+            margin-inline-end: 0.6em;
+
+            @media (min-width: 35em) and (max-width: 55em) {
+                display: none;
+            }
+        }
+    }
+
+    @supports (backdrop-filter: blur(1rem)) {
+        .primary-navigation {
+            background: hsl(0 0% 100% / 0.1);
+            backdrop-filter: blur(1rem);
+        }
+    }
+</style>
+
+<script>
+    const primaryNav = document.querySelector('.primary-navigation');
+    const navToggle = document.querySelector('.mobile-nav-toggle');
+
+    navToggle.addEventListener('click', () => {
+        const visibility = primaryNav.getAttribute('data-visible');
+
+        if (visibility === "false") {
+            primaryNav.setAttribute('data-visible', "true");
+            navToggle.setAttribute('aria-expanded', "true");
+        } else if (visibility === "true") {
+            primaryNav.setAttribute('data-visible', "false");
+            navToggle.setAttribute('aria-expanded', "false");
+        }
+    });
+</script>

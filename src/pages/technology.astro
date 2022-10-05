@@ -1,0 +1,57 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TechnologySlider from '../components/TechnologySlider.vue';
+
+import json from '../assets/data.json';
+---
+
+<Layout title="Space Tourism - Technology">
+	<section>
+		<h2><span aria-hidden="true">03</span>Space Launch 101</h2>
+		<TechnologySlider client:load json={ json.technology } />
+	</section>
+</Layout>
+
+<style lang="scss">
+	@import "../styles/global.scss";
+
+	body {
+		background-image: url("/assets/technology/background-technology-desktop.jpg");
+		background-size: cover;
+		background-repeat: no-repeat;
+
+		@media (min-width: 35rem) and (max-width: 60rem) {
+			background-image: url("/assets/technology/background-technology-tablet.jpg");
+		}
+
+		@media (max-width: 35rem) {
+			background-image: url("/assets/technology/background-technology-mobile.jpg");
+		}
+	}
+
+	section {
+		margin-block-start: 5rem;
+		margin-block-end: 3rem;
+
+		@media (max-width: 60rem) {
+			margin-block-start: 2rem;
+		}
+
+		@media (max-width: 35rem) {
+			margin-block-start: 1rem;
+		}
+	}
+
+	h2 {
+		@include heading-5;
+
+		span[aria-hidden="true"] {
+			opacity: 0.4;
+			margin-inline-end: 0.75em;
+		}
+
+		@media (max-width: 35rem) {
+			font-size: 16px;
+		}
+	}
+</style>

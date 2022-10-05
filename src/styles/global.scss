@@ -1,0 +1,257 @@
+/* font imports */
+@import url('https://fonts.googleapis.com/css2?family=Barlow&family=Barlow+Condensed:wght@400;700&family=Bellefair&display=swap');
+
+/* reset */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+
+    display: grid;
+    grid-template-rows: min-content 1fr;
+    min-height: 100vh;
+
+    overflow-x: hidden;
+    overflow-y: hidden;
+
+    @media (max-width: 60rem) {
+        overflow-y: auto;
+    }
+}
+
+h1, h2, h3, h4, h5, p {
+    margin: 0;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* typography definitions */
+@mixin heading-1 {
+    font-family: "Bellefair", serif;
+    font-size: 150px;
+    text-transform: uppercase;
+    line-height: 1;
+}
+
+@mixin heading-2 {
+    font-family: "Bellefair", serif;
+    font-size: 100px;
+    text-transform: uppercase;
+}
+
+@mixin heading-3 {
+    font-family: "Bellefair", serif;
+    font-size: 56px;
+    text-transform: uppercase;
+}
+
+@mixin heading-4 {
+    font-family: "Bellefair", serif;
+    font-size: 32px;
+    text-transform: uppercase;
+}
+
+@mixin heading-5 {
+    font-family: "Barlow Condensed", sans-serif;
+    font-size: 28px;
+    letter-spacing: 4.75px;
+    text-transform: uppercase;
+}
+
+@mixin sub-heading-1 {
+    font-family: "Bellefair", serif;
+    font-size: 28px;
+    text-transform: uppercase;
+}
+
+@mixin sub-heading-2 {
+    font-family: "Barlow Condensed", sans-serif;
+    font-size: 14px;
+    letter-spacing: 2.35px;
+    text-transform: uppercase;
+}
+
+@mixin nav-text {
+    font-family: "Barlow Condensed", sans-serif;
+    font-size: 16px;
+    letter-spacing: 2.7px;
+    text-transform: uppercase;
+}
+
+@mixin text {
+    font-family: "Barlow", sans-serif;
+    font-size: 18px;
+    line-height: 1.8;
+}
+
+/* color definitions */
+$primary-color: hsl(231, 77%, 90%);
+$dark-color: hsl(230, 35%, 7%);
+$light-color: hsl(0, 0%, 100%);
+
+@mixin color-primary {
+    color: $primary-color;
+}
+
+@mixin color-dark {
+    color: $dark-color;
+}
+
+@mixin color-light {
+    color: $light-color;
+}
+
+@mixin bg-color-primary {
+    background-color: $primary-color;
+}
+
+@mixin bg-color-dark {
+    background-color: $dark-color;
+}
+
+@mixin bg-color-light {
+    background-color: $light-color;
+}
+
+.color-primary {
+    @include color-primary;
+}
+
+.color-dark {
+    @include color-dark;
+}
+
+.color-light {
+    @include color-light;
+}
+
+.bg-color-primary {
+    @include bg-color-primary;
+}
+
+.bg-color-dark {
+    @include bg-color-dark;
+}
+
+.bg-color-light {
+    @include bg-color-light;
+}
+
+/* utilities */
+
+@mixin flex {
+    display: flex;
+    gap: var(--gap, 1rem);
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+
+/* global styles */
+body {
+    @include color-light;
+    @include bg-color-dark;
+}
+
+body > header,
+body > main {
+    max-width: 1920px;
+    justify-self: center;
+}
+
+body > header {
+    width: calc(100% - 6rem);
+    margin-inline: 3rem;
+
+    /* tablet */
+    @media (min-width: 35rem) and (max-width: 60rem) {
+        width: calc(100% - 4rem);
+        margin-inline: 2rem;
+    }
+
+    /* mobile */
+    @media (max-width: 35rem) {
+        width: calc(100% - 3rem);
+        margin-inline: 1.5rem;
+    }
+}
+
+body > main {
+    width: calc(100% - 20rem);
+    margin-inline: 10rem;
+
+    /* tablet */
+    @media (min-width: 35rem) and (max-width: 60rem) {
+        width: calc(100% - 4rem);
+        margin-inline: 2rem;
+    }
+
+    /* mobile */
+    @media (max-width: 35rem) {
+        width: calc(100% - 3rem);
+        margin-inline: 1.5rem;
+    }
+}
+
+/* animations */
+
+/* transition for planets */
+@mixin curve-in-animation($duration: 150ms, $offset: 0) {
+    opacity: 0;
+    transform: translate(-1000px, 1000px);
+
+    animation: curveInAnimation $duration linear $offset;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+@mixin fade-in-animation($duration: 150ms, $offset: 0) {
+    opacity: 0;
+
+    animation: fadeInAnimation $duration ease $offset;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+@keyframes curveInAnimation {
+    from { 
+        opacity: 0;
+        transform: rotate(-90deg) translateX(-500px) rotate(90deg); 
+    }
+    to   { 
+        opacity: 1;
+        transform: rotate(0deg) translateX(0) rotate(0deg); 
+    }
+}
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* global animation */
+body > main {
+    @include fade-in-animation(1s);
+}

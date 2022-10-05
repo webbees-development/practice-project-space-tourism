@@ -1,0 +1,153 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Space Tourism">
+	<section>
+		<div>
+			<p class="sub-heading">So, you want to travel to</p>
+			<h1>Space</h1>
+			<p class="text">
+				Let’s face it; if you want to go to space, you might as well genuinely go to 
+				outer space and not hover kind of on the edge of it. Well sit back, and relax 
+				because we’ll give you a truly out of this world experience!
+			</p>
+		</div>
+		<div>
+			<button class="cta">
+				<a href="/destination">Explore</a>
+			</button>
+		</div>
+	</section>
+</Layout>
+
+<style lang="scss">
+	@import "../styles/global.scss";
+
+	body {
+		background-image: url("/assets/home/background-home-desktop.jpg");
+		background-size: cover;
+		background-repeat: no-repeat;
+
+		@media (min-width: 35rem) and (max-width: 75rem) {
+			background-image: url("/assets/home/background-home-tablet.jpg");
+		}
+
+		@media (max-width: 35rem) {
+			background-image: url("/assets/home/background-home-mobile.jpg");
+		}
+	}
+
+	section {
+		@include flex;
+
+		justify-content: space-between;
+		align-items: flex-end;
+
+		margin-block-start: 18rem;
+
+		@media (max-width: 60rem) {
+			display: block;
+			text-align: center;
+
+			margin-block-start: 6rem;
+		}
+
+		@media (max-width: 35rem) {
+			margin-block-start: 3rem;
+		}
+	}
+
+	h1 {
+		@include heading-1;
+
+		margin-block-start: 2rem;
+		margin-block-end: 3rem;
+
+		@media (max-width: 60rem) {
+			margin-block-end: 1.5rem;
+		}
+
+		@media (max-width: 35rem) {
+			font-size: min(150px, 25vw);
+
+			margin-block-start: 1.2rem;
+			margin-block-end: 2rem;
+		}
+	}
+
+	p.sub-heading {
+		@include heading-5;
+		color: $primary-color;
+
+		@media (max-width: 35rem) {
+			font-size: min(28px, 5vw);
+		}
+	}
+
+	p.text {
+		@include text;
+		max-width: 41ch;
+
+		@media (max-width: 60rem) {
+			margin-inline: auto;
+			max-width: 48ch;
+		}
+
+		@media (max-width: 35rem) {
+			max-width: 38ch;
+
+			font-size: min(18px, 4vw);
+		}
+	}
+
+	.cta {
+		color: $dark-color;
+		background-color: $light-color;
+
+		--button-width: 17rem;
+
+		width: var(--button-width);
+		aspect-ratio: 1;
+		border: none;
+		border-radius: calc(var(--button-width) / 2);
+
+		outline: solid 0 rgba($dark-color, 0.6);
+
+		transition: outline-width 300ms ease-out;
+
+		@media (max-width: 60rem) {
+			margin-top: 4rem;
+		}
+
+		@media (max-width: 75rem) {
+			--button-width: min(17rem, 50vw);
+		}
+
+		a {
+			@include heading-4;
+
+			color: $dark-color;
+			
+			display: block;
+			width: var(--button-width);
+			aspect-ratio: 1;
+			border-radius: calc(var(--button-width) / 2);
+
+			padding-top: calc(((var(--button-width) / 2)) - 1rem);
+			transform: translateX(-6px);
+
+			transition: all 100ms ease;
+		}
+	}
+
+	.cta:hover,
+	.cta:focus-visible {
+		outline-width: 5.5rem;
+	}
+
+	.cta a:active {
+		color: $light-color;
+	}
+
+</style>
