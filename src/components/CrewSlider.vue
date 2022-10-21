@@ -18,6 +18,10 @@
         <div class="image" :key="current_index">
             <img :src="json[current_index].images.webp">
         </div>
+
+        <Teleport to="head" v-if="json">
+            <link v-for="(element, index) in json" :key="index" :href="element.images.webp" rel="preload" as="image">
+        </Teleport>
     </div>
 </template>
 
@@ -42,7 +46,7 @@
         methods: {
             setCurrentIndex(index) {
                 this.current_index = index;
-            }
+            },
         }
     }
 </script>
