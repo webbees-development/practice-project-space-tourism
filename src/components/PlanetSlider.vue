@@ -32,6 +32,10 @@
                 </div>
             </div>
         </div>
+
+        <Teleport to="head" v-if="json">
+            <link v-for="(element, index) in json" :key="index" :href="element.images.webp" rel="preload" as="image">
+        </Teleport>
     </div>
 </template>
 

@@ -22,6 +22,11 @@
             <img class="desktop" :src="json[current_index].images.portrait">
             <img class="mobile" :src="json[current_index].images.landscape">
         </div>
+
+        <Teleport to="head" v-if="json">
+            <link v-for="(element, index) in json" :key="index" :href="element.images.portrait" rel="preload" as="image">
+            <link v-for="(element, index) in json" :key="index" :href="element.images.landscape" rel="preload" as="image">
+        </Teleport>
     </div>
 </template>
 
