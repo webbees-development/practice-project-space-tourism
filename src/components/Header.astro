@@ -21,17 +21,17 @@
                 </a>
             </li>
             <li>
-                <a class={`${Astro.url.pathname === "/destination/" && "active"}`} href="/destination">
+                <a class={`${Astro.url.pathname.includes("destination") && "active"}`} href="/destination">
                     <span aria-hidden="true">01</span>Destination
                 </a>
             </li>
             <li>
-                <a class={`${Astro.url.pathname === "/crew" && "active"}`} href="/crew">
+                <a class={`${Astro.url.pathname.includes("crew") && "active"}`} href="/crew">
                     <span aria-hidden="true">02</span>Crew
                 </a>
             </li>
             <li>
-                <a class={`${Astro.url.pathname === "/technology" && "active"}`} href="/technology">
+                <a class={`${Astro.url.pathname.includes("technology") && "active"}`} href="/technology">
                     <span aria-hidden="true">03</span>Technology
                 </a>
             </li>
